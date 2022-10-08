@@ -11,8 +11,9 @@ export default defineConfig(({ command, mode }) => {
       proxy: {
         '/api/v1': {
           target: isDev ? 'http://localhost:3000' : 'https://natours-arun.herokuapp.com',
-          changeOrigin: isDev,
-          secure: !isDev,
+          changeOrigin: true,
+          secure: false,
+          ws: true,
         },
       },
     },
