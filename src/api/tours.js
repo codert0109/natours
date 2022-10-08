@@ -23,7 +23,14 @@ export const getOneTour = async tourName => {
 
 export const getBookedTours = async () => {
   try {
-    const { data: bookingsData } = await axios.get(`${SERVER_BASE_URL}/api/v1/tours/my-tours`);
+    const options = {
+      headers: { Authorization: `Bearer ${localStorage.getItem('jwt')}` },
+    };
+
+    const { data: bookingsData } = await axios.get(
+      `${SERVER_BASE_URL}/api/v1/tours/my-tours`,
+      options
+    );
 
     if (bookingsData.status === 'success') return bookingsData.data;
   } catch (err) {

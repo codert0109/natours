@@ -512,6 +512,9 @@ body {
   z-index: 1000;
 }
 
+.picture-box {
+  background-color: #192127;
+}
 .picture-box__img {
   display: block;
   width: 100%;

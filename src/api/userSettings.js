@@ -9,7 +9,11 @@ export const updateSettings = async (data, type) => {
       type === 'password'
         ? `${SERVER_BASE_URL}/api/v1/users/update-password`
         : `${SERVER_BASE_URL}/api/v1/users/update-me`;
-    const { data: updatedData } = await axios.patch(url, data);
+
+    const options = {
+      headers: { Authorization: `Bearer ${localStorage.getItem('jwt')}` },
+    };
+    const { data: updatedData } = await axios.patch(url, data, options);
 
     if (updatedData.status === 'success') {
       showAlert('success', `${type.toUpperCase()} updated successfully`);

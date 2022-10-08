@@ -4,8 +4,11 @@ import { handleErrorAlert } from '../utils/alert';
 
 export const bookTour = async tourId => {
   try {
+    const options = {
+      headers: { Authorization: `Bearer ${localStorage.getItem('jwt')}` },
+    };
     const { data } = await axios.get(
-      `${SERVER_BASE_URL}/api/v1/bookings/checkout-session/${tourId}`
+      `${SERVER_BASE_URL}/api/v1/bookings/checkout-session/${tourId}`, options
     );
 
     if (data.status === 'success') {
@@ -13,18 +16,6 @@ export const bookTour = async tourId => {
     }
 
     throw new Error('Something went very wrong!');
-  } catch (err) {
-    handleErrorAlert(err);
-  }
-};
-
-export const createBooking = async searchQuery => {
-  try {
-    const { data } = await axios.get(
-      `${SERVER_BASE_URL}/api/v1/bookings/create-booking/${searchQuery}`
-    );
-
-    if (data.status === 'success') return true;
   } catch (err) {
     handleErrorAlert(err);
   }

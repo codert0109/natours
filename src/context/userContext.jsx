@@ -46,6 +46,7 @@ export const UserProvider = ({ children }) => {
 
   const removeUser = () => {
     localStorage.removeItem('userInfo');
+    localStorage.removeItem('jwt');
 
     dispatch({
       type: USER_REDUCER_ACTION_TYPES.SET_USER_INFO,
@@ -53,7 +54,11 @@ export const UserProvider = ({ children }) => {
     });
   };
 
-  const isUserLoggedIn = userInfo?._id ? true : false;
+  const isUserLoggedIn = localStorage.getItem('jwt') ? true : false;
+
+  // Need to clear all of the items in local storage
+  // If no token but user info is present
+  if (!isUserLoggedIn && userInfo.id) removeUser();
 
   const value = { userInfo, isUserLoggedIn, setUserInfo, removeUser };
 
