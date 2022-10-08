@@ -1,9 +1,12 @@
 import axios from 'axios';
+import { SERVER_BASE_URL } from '../constants/serverConstants';
 import { handleErrorAlert } from '../utils/alert';
 
 export const bookTour = async tourId => {
   try {
-    const { data } = await axios.get(`/api/v1/bookings/checkout-session/${tourId}`);
+    const { data } = await axios.get(
+      `${SERVER_BASE_URL}/api/v1/bookings/checkout-session/${tourId}`
+    );
 
     if (data.status === 'success') {
       return data.sessionUrl;
@@ -17,7 +20,9 @@ export const bookTour = async tourId => {
 
 export const createBooking = async searchQuery => {
   try {
-    const { data } = await axios.get(`/api/v1/bookings/create-booking/${searchQuery}`);
+    const { data } = await axios.get(
+      `${SERVER_BASE_URL}/api/v1/bookings/create-booking/${searchQuery}`
+    );
 
     if (data.status === 'success') return true;
   } catch (err) {
